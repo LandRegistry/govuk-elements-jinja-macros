@@ -1,0 +1,77 @@
+{% macro element(form, name, label='', value='',after_label='', after_input='', attributes={}, hint='', label_class='') -%}
+
+  <div class="form-group{% if form.errors and form.errors[name] %} error{% endif %}">
+
+    {% set el=form[name] %}
+
+    {% if el['type'] == 'FileField' %}
+      {% set default_attributes={} %}
+    {% else %}
+      {% set default_attributes={'class': 'form-control'} %}
+    {% endif %}
+
+    {% set _dummy = attributes.update(default_attributes) %}
+
+    {% if label %}
+      {{ el.label(class='form-label ' + label_class, text=label) }}
+    {% else %}
+      {{ el.label(class='form-label ' + label_class) }}
+    {% endif %}
+
+    {% if after_label %}
+      {{ after_label }}
+    {% endif %}
+
+    {% if form.errors and form.errors[name] %}
+      {% if form.errors[name]|length > 1 %}
+        <div class="error-message">
+          <ul class="list list-bullet" id="error-message-{{ el.id }}">
+            {% for error in form.errors[name] %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% else %}
+        <span class="error-message" id="error-message-{{ el.id }}">{{ form.errors[name]|join(', ') }}</span>
+      {% endif %}
+    {% endif %}
+
+    {% if hint %}
+      <span class="form-hint">{{ hint }}</span>
+    {% endif %}
+
+    {{ el(**attributes) }}
+
+    {% if after_control %}
+      {{ after_control }}
+    {% endif %}
+
+  </div>
+
+{%- endmacro %}
+
+{% macro block_checkbox(form, name) %}
+  <div class="form-group{% if form.errors[name] %} error{% endif %}">
+    {% set el=form[name] %}
+
+    <label class="block-label" for="{{name}}">
+      {{ el }}
+
+      {{ el.label.text }}
+    </label>
+
+    {% if form.errors[name] %}
+      {% if form.errors[name]|length > 1 %}
+        <div class="error-message">
+          <ul class="list list-bullet" id="error-message-{{ el.id }}">
+            {% for error in form.errors[name] %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% else %}
+        <span class="error-message" id="error-message-{{ el.id }}">{{ form.errors[name]|join(', ') }}</span>
+      {% endif %}
+    {% endif %}
+  </div>
+{% endmacro %}
