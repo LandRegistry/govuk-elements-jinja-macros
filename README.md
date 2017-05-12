@@ -15,7 +15,7 @@ This will mean that templates from your main app will now be available on the `a
 ## Working on the templates
 If you want to work on templates in the package from within the Land Registry common devenv you will need to follow the steps below.
 
-_Background: What you are aiming to do is to override the package which is installed from Git with a local copy of it while you are doing development work. However, due to a quirk of Docker's filesystems, `pip` is unable to install the local copy of the module over the top of the one that is already there. To work around this we have to mount a new volume over the top of the location where the module is installed. Like this:_
+> _Background: What you are aiming to do is to override the package which is installed from Git with a local copy of it while you are doing development work. However, due to a quirk of Docker's filesystems, `pip` is unable to install the local copy of the module over the top of the one that is already there. To work around this we have to mount a new volume over the top of the location where the module is installed. Like this:_
 
 **Step 1**)
 Add the following to your `dev-env-project/configuration.yml` file:
