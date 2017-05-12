@@ -26,7 +26,7 @@ govuk-elements-jinja-macros:
 ```
 
 **Step 2**)
-In the `docker-compose-fragment.yml` of your Flask frontend app, add the following to the `volumse` list:
+In the `docker-compose-fragment.yml` of your Flask frontend app, add the following to the `volumes` list:
 ```
 - /vagrant/apps/govuk-elements-jinja-macros/govuk_elements_jinja_macros:/lib/python3.4/site-packages/govuk_elements_jinja_macros
 ```
