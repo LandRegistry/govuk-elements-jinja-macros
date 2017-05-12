@@ -56,17 +56,17 @@
 
 {%- endmacro %}
 
-{% macro block_checkbox(form, name) %}
-  <div class="form-group{% if form.errors[name] %} error{% endif %}">
+{% macro boolean(form, name) %}
+  <div class="multiple-choice {% if form.errors[name] %} error{% endif %}">
     {% set el=form[name] %}
 
-    <label class="block-label" for="{{name}}">
-      {{ el }}
+    {{ el }}
 
+    <label for="{{name}}">
       {{ el.label.text }}
     </label>
 
-    {% if form.errors[name] %}
+    {% if form.errors and form.errors[name] %}
       {% if form.errors[name]|length > 1 %}
         <div class="error-message">
           <ul class="list list-bullet" id="error-message-{{ el.id }}">
