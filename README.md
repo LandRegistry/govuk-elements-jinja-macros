@@ -32,3 +32,5 @@ In the `docker-compose-fragment.yml` of your Flask frontend app, add the followi
 ```
 
 This will mount the checked out copy of the repository over the top of where `pip` had installed the module to previously. Thereby allowing you to edit it whilst using it installed in your Flask app.
+
+> Credit goes to @sdchapman for this ingenious idea. Thanks!
