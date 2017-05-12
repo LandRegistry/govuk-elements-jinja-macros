@@ -10,7 +10,13 @@
       {% set default_attributes={'class': 'form-control'} %}
     {% endif %}
 
-    {% set _dummy = attributes.update(default_attributes) %}
+    {# Extend the default attributes #}
+    {% for attr in default_attributes %}
+      {% if not attributes[attr] %}
+        {% set _dummy = attributes.__setitem__(attr, default_attributes[attr]) %}
+      {% endif %}
+    {% endfor %}
+
 
     {% if label %}
       {{ el.label(class='form-label ' + label_class, text=label) }}
