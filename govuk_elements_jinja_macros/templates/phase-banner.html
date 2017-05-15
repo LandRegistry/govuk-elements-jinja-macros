@@ -1,0 +1,10 @@
+{% macro phase_banner(phase, text, after) %}
+  <div class="phase-banner">
+    <p>
+      <strong class="phase-tag">{{phase}}</strong>
+      <span>{{text}}</span>
+    </p>
+
+    {{after}}
+  </div>
+{% endmacro %}
