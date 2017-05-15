@@ -56,28 +56,62 @@
 
 {%- endmacro %}
 
-{% macro boolean(form, name) %}
-  <div class="multiple-choice {% if form.errors[name] %} error{% endif %}">
-    {% set el=form[name] %}
+{% macro multiple_choice(form, name) %}
+  <div class="form-group">
+    <fieldset>
+      <legend>{{ form[name].label }}</legend>
 
-    {{ el }}
-
-    <label for="{{name}}">
-      {{ el.label.text }}
-    </label>
-
-    {% if form.errors and form.errors[name] %}
-      {% if form.errors[name]|length > 1 %}
-        <div class="error-message">
-          <ul class="list list-bullet" id="error-message-{{ el.id }}">
-            {% for error in form.errors[name] %}
-              <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% else %}
-        <span class="error-message" id="error-message-{{ el.id }}">{{ form.errors[name]|join(', ') }}</span>
+      {% if form.errors and form.errors[name] %}
+        {% if form.errors[name]|length > 1 %}
+          <div class="error-message">
+            <ul class="list list-bullet" id="error-message-{{ form[name].id }}">
+              {% for error in form.errors[name] %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% else %}
+          <span class="error-message" id="error-message-{{ form[name].id }}">{{ form.errors[name]|join(', ') }}</span>
+        {% endif %}
       {% endif %}
-    {% endif %}
+
+      {% for el in form[name] %}
+        <div class="multiple-choice {% if form.errors[name] %} error{% endif %}">
+          {{ el }}
+
+          <label for="{{el.id}}">
+            {{ el.label.text }}
+          </label>
+        </div>
+      {% endfor %}
+    </fieldset>
+  </div>
+{% endmacro %}
+
+{% macro single_choice(form, name) %}
+  {% set el=form[name] %}
+  <div class="form-group">
+    <div class="multiple-choice {% if form.errors[name] %} error{% endif %}">
+      {{ el }}
+
+
+      <label for="{{el.id}}">
+        {{ el.label.text }}
+
+        {% if form.errors and form.errors[name] %}
+          {% if form.errors[name]|length > 1 %}
+            <div class="error-message">
+              <ul class="list list-bullet" id="error-message-{{ el.id }}">
+                {% for error in form.errors[name] %}
+                  <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% else %}
+            <span class="error-message" id="error-message-{{ el.id }}">{{ form.errors[name]|join(', ') }}</span>
+          {% endif %}
+        {% endif %}
+      </label>
+    </div>
   </div>
 {% endmacro %}
