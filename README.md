@@ -1,6 +1,10 @@
 # GOV.UK Elements Jinja macros
 
-Assumptions: You are using Python/Flask and WTForms via Flask-WTF. These templates may work with Jinja and WTForms standalone but this has not been tested.
+## Assumptions
+You are using Python/Flask and WTForms via Flask-WTF. These templates may work with Jinja and WTForms standalone but this has not been tested.
+
+## Caveats
+The macros only cater for relatively simple usages of the form markup. If you need to do something that isn't catered for - just break out and write the HTML. These templates are here to help you, but stop using them as soon as they stop helping you, don't battle with them... Instead, refer directly to http://govuk-elements.herokuapp.com/form-elements/
 
 ## Using the templates from within your Flask app
 In order to use these templates, you need to configure your Flask app to load templates from sources other than your app. This is done with the following snippet:

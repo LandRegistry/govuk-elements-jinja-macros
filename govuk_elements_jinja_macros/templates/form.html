@@ -1,8 +1,7 @@
 {% macro element(form, name, label='', value='',after_label='', after_input='', attributes={}, hint='', label_class='') -%}
+  {% set el=form[name] %}
 
-  <div class="form-group{% if form.errors and form.errors[name] %} error{% endif %}">
-
-    {% set el=form[name] %}
+  <div class="form-group{% if form.errors and form.errors[name] %} form-group-error{% endif %}" id="form-group-{{ el.id }}">
 
     {% if el['type'] == 'FileField' %}
       {% set default_attributes={} %}
@@ -57,9 +56,9 @@
 {%- endmacro %}
 
 {% macro multiple_choice(form, name) %}
-  <div class="form-group">
+  <div class="form-group{% if form.errors[name] %} form-group-error{% endif %}" id="form-group-{{ form[name].id }}">
     <fieldset>
-      <legend>{{ form[name].label }}</legend>
+      <legend>{{ form[name].label.text }}</legend>
 
       {% if form.errors and form.errors[name] %}
         {% if form.errors[name]|length > 1 %}
@@ -76,7 +75,7 @@
       {% endif %}
 
       {% for el in form[name] %}
-        <div class="multiple-choice {% if form.errors[name] %} error{% endif %}">
+        <div class="multiple-choice">
           {{ el }}
 
           <label for="{{el.id}}">
@@ -90,10 +89,9 @@
 
 {% macro single_choice(form, name) %}
   {% set el=form[name] %}
-  <div class="form-group">
+  <div class="form-group{% if form.errors[name] %} form-group-error{% endif %}" id="form-group-{{ el.id }}">
     <div class="multiple-choice {% if form.errors[name] %} error{% endif %}">
       {{ el }}
-
 
       <label for="{{el.id}}">
         {{ el.label.text }}
@@ -114,4 +112,22 @@
       </label>
     </div>
   </div>
+{% endmacro %}
+
+{% macro error_summary(form) %}
+  {% if form.errors %}
+    <div class="error-summary" role="group" aria-labelledby="error-summary-heading" tabindex="-1">
+      <h2 class="heading-medium error-summary-heading" id="error-summary-heading">The following errors were found:</h2>
+
+      <ul class="error-summary-list">
+        {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+          {% for error in field_errors %}
+            <li>
+              <a href="#form-group-{{ form[field_name].id }}">{{ error }}</a>
+            </li>
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
 {% endmacro %}
