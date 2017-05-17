@@ -27,7 +27,7 @@ If you want to work on templates in the package from within the Land Registry co
 Add the following to your `dev-env-project/configuration.yml` file:
 ```
 govuk-elements-jinja-macros:
-  repo: git@github.com:andymantell/govuk-elements-jinja-macros.git
+  repo: git@github.com:LandRegistry/govuk-elements-jinja-macros.git
   branch: master
 ```
 
