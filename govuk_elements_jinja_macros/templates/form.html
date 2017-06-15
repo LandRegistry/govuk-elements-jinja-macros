@@ -123,7 +123,11 @@
         {% for field_name, field_errors in form.errors|dictsort if field_errors %}
           {% for error in field_errors %}
             <li>
-              <a href="#form-group-{{ form[field_name].id }}">{{ error }}</a>
+              {% if form[field_name].type in ['RadioField', 'SelectMultipleField'] %}
+                <a href="#form-group-{{ form[field_name].id }}">{{ error }}</a>
+              {% else %}
+                <a href="#{{ form[field_name].id }}">{{ error }}</a>
+              {% endif %}
             </li>
           {% endfor %}
         {% endfor %}
