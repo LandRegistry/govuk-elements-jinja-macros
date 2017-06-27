@@ -16,12 +16,18 @@
       {% endif %}
     {% endfor %}
 
-
-    {% if label %}
-      {{ el.label(class='form-label ' + label_class, text=label) }}
-    {% else %}
-      {{ el.label(class='form-label ' + label_class) }}
+    {% if not label %}
+      {% set label = el.label.text %}
     {% endif %}
+
+    {% if hint %}
+      {% set label -%}
+        {{- label -}}
+        <span class="form-hint">{{ hint }}</span>
+      {%- endset %}
+    {% endif %}
+    
+    {{ el.label(class='form-label ' + label_class, text=label) }}
 
     {% if after_label %}
       {{ after_label }}
@@ -39,10 +45,6 @@
       {% else %}
         <span class="error-message" id="error-message-{{ el.id }}">{{ form.errors[name]|join(', ') }}</span>
       {% endif %}
-    {% endif %}
-
-    {% if hint %}
-      <span class="form-hint">{{ hint }}</span>
     {% endif %}
 
     {{ el(**attributes) }}
