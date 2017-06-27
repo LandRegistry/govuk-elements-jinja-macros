@@ -8,9 +8,13 @@ The macros only cater for relatively simple usages of the form markup. If you ne
 
 ## Demo
 
-These macros can be seen in use at http://land-registry-elements.herokuapp.com/clientside-form-validation/demo
+These macros can be seen in use at:
 
-The source code for this page is at https://github.com/LandRegistry/land-registry-elements/blob/master/src/land_registry_elements/clientside-form-validation/demos/demo.html
+http://land-registry-elements.herokuapp.com/clientside-form-validation/demo
+
+The source code for this page is at:
+
+https://github.com/LandRegistry/land-registry-elements/blob/master/src/land_registry_elements/clientside-form-validation/demos/demo.html
 
 ## Using the templates from within your Flask app
 In order to use these templates, you need to configure your Flask app to load templates from sources other than your app. This is done with the following snippet:
