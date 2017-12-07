@@ -72,7 +72,9 @@
 {% macro multiple_choice(form, name) %}
   <div class="form-group{% if form.errors[name] %} form-group-error{% endif %}" id="form-group-{{ form[name].id }}">
     <fieldset>
-      <legend>{{ form[name].label.text }}</legend>
+      <legend>
+        <span class="form-label">{{ form[name].label.text }}</span>
+      </legend>
 
       {% if form.errors and form.errors[name] %}
         {% if form.errors[name]|length > 1 %}
