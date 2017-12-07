@@ -20,6 +20,10 @@
       {% set label = el.label.text %}
     {% endif %}
 
+    {% set label %}
+      <span class="form-label {{ label_class }}">{{- label -}}</span>
+    {% endset %}
+
     {% if hint %}
       {% set label -%}
         {{- label -}}
@@ -27,24 +31,32 @@
       {%- endset %}
     {% endif %}
     
-    {{ el.label(class='form-label ' + label_class, text=label) }}
+    {% if form.errors and form.errors[name] %}
+      {% set _dummy = attributes.__setitem__('class', attributes['class'] + ' form-control-error') %}
+
+      {% if form.errors[name]|length > 1 %}
+        {% set label -%}
+          {{- label -}}
+          <div class="error-message">
+            <ul class="list list-bullet" id="error-message-{{ el.id }}">
+              {% for error in form.errors[name] %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        {% endset %}
+      {% else %}
+        {% set label -%}
+          {{- label -}}
+          <span class="error-message" id="error-message-{{ el.id }}">{{ form.errors[name]|join(', ') }}</span>
+        {% endset %}
+      {% endif %}
+    {% endif %}
+
+    {{ el.label(text=label) }}
 
     {% if after_label %}
       {{ after_label }}
-    {% endif %}
-
-    {% if form.errors and form.errors[name] %}
-      {% if form.errors[name]|length > 1 %}
-        <div class="error-message">
-          <ul class="list list-bullet" id="error-message-{{ el.id }}">
-            {% for error in form.errors[name] %}
-              <li>{{ error }}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% else %}
-        <span class="error-message" id="error-message-{{ el.id }}">{{ form.errors[name]|join(', ') }}</span>
-      {% endif %}
     {% endif %}
 
     {{ el(**attributes) }}
