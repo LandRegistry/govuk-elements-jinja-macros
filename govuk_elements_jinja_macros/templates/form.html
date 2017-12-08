@@ -1,7 +1,7 @@
-{% macro element(form, name, label='', value='',after_label='', after_control='', attributes={}, hint='', label_class='') -%}
+{% macro element(form, name, label='', value='',after_label='', after_control='', attributes={}, hint='', label_class='', form_group_class='') -%}
   {% set el=form[name] %}
 
-  <div class="form-group{% if form.errors and form.errors[name] %} form-group-error{% endif %}" id="form-group-{{ el.id }}">
+  <div class="form-group{% if form.errors and form.errors[name] %} form-group-error{% endif %} {{form_group_class}}" id="form-group-{{ el.id }}">
 
     {% if el['type'] == 'FileField' %}
       {% set default_attributes={} %}
